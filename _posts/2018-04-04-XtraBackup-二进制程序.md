@@ -8,17 +8,20 @@ date: 2018-04-04 10:50:58
 ---
 
 ---
-**xtrabackup** 二进制程序是一个已经编译好的，链接到 InnoDB 库和标准 MySQL 客户端库的 C 程序。 InnoDB 库提供了将日志文件应用于数据文件所需的功能，MySQL 客户端库提供了命令行选项解析，配置文件解析等，以使 **xtrabackup**  二进制具有 MySQL 客户端类似的外观。
+
+**xtrabackup** 二进制程序是一个已经编译好的，链接到 InnoDB 库和标准 MySQL 客户端库的 C 程序。 InnoDB 库提供了将日志文件应用于数据文件所需的功能，MySQL 客户端库提供了命令行选项解析，配置文件解析等，以使 **xtrabackup** 二进制具有 MySQL 客户端类似的外观。
 
 该工具以 `--backup` 或 `--prepare` 模式运行，分别对应于它执行的两个主要功能。这些函数有几种不同的变体来完成不同的任务，并且有两种不常用的模式 `--stats` 和 `--print-param`。
 
 # 其他类型的备份
 
 ## 增量备份
+
 **xtrabackup** 和 **innobackupex** 工具都支持增量备份，这意味着它可以只复制自上次完全备份以来更改过的数据。您可以在每个完全备份之间执行多次增量备份，因此您可以设置这样的备份过程，例如每周一次完全备份和每天增量备份，或每天完全备份和每小时增量备份。
+
 <!-- more -->
 
-增量备份基于每个 InnoDB 页面（通常大小为16kb）都包含日志序列号或 [LSN](https://www.percona.com/doc/percona-xtrabackup/LATEST/glossary.html#term-lsn) 而工作。 LSN 是整个数据库的系统版本号。每个页面的 LSN 显示了最近的数据变化。增量备份复制那些 LSN 比先前增量或完全备份的 LSN 更新的每个页面。有两种算法用于查找要复制的这类页面的集合。第一种可用于所有服务器类型和版本，通过读取所有数据页直接检查页面 LSN。 第二种方法仅适用于 Percona Server，Percona Server 通过启用服务器上更改页面跟踪功能，该功能会记录更改的页面。这些信息将被写入一个紧凑的单独的所谓的位图文件中。 **xtrabackup** 二进制程序将使用该文件读取增量备份所需的数据页面，这会节省很多读取请求。如果 **xtrabackup** 二进制程序找到位图文件，则默认启用后一种算法。即使位图文件可用，也可以指定 `--incremental-force-scan` 来读取所有页面。
+增量备份基于每个 InnoDB 页面（通常大小为 16kb）都包含日志序列号或 [LSN](https://www.percona.com/doc/percona-xtrabackup/LATEST/glossary.html#term-lsn) 而工作。 LSN 是整个数据库的系统版本号。每个页面的 LSN 显示了最近的数据变化。增量备份复制那些 LSN 比先前增量或完全备份的 LSN 更新的每个页面。有两种算法用于查找要复制的这类页面的集合。第一种可用于所有服务器类型和版本，通过读取所有数据页直接检查页面 LSN。 第二种方法仅适用于 Percona Server，Percona Server 通过启用服务器上更改页面跟踪功能，该功能会记录更改的页面。这些信息将被写入一个紧凑的单独的所谓的位图文件中。 **xtrabackup** 二进制程序将使用该文件读取增量备份所需的数据页面，这会节省很多读取请求。如果 **xtrabackup** 二进制程序找到位图文件，则默认启用后一种算法。即使位图文件可用，也可以指定 `--incremental-force-scan` 来读取所有页面。
 
 增量备份实际上不会将数据文件与先前备份的数据文件进行比较。实际上，如果您知道 LSN，则可以使用 `--incremental-lsn` 执行增量备份，而无需使用以前的备份。增量备份只需读取页面并将其 LSN 与最后一个备份的 LSN 进行比较。但是，您仍需要完整备份才能恢复增量备份;如果没有完整的备份作为基础，增量备份将毫无用处。
 
@@ -31,7 +34,7 @@ xtrabackup --backup --target-dir=/data/backups/base --datadir=/var/lib/mysql/
 ```
 
 如果您想要一个可用的完整备份，请使用 **innobackupex**，因为 xtrabackup 本身不会复制表定义，触发器或其他任何不是 .ibd 的文件。
- 
+
 如果您查看 `xtrabackup_checkpoints` 文件，您应该看到以下类似的内容：
 
 ```
@@ -99,7 +102,7 @@ xtrabackup --prepare --apply-log-only --target-dir=/data/backups/base \
 --incremental-dir=/data/backups/inc1
 ```
 
-这会将增量文件应用于 `/data/backups/base` 中的文件，这些文件会将它们及时前滚到增量备份的时间。然后像照例将重做日志应用于结果。最终数据位于/  `/data/backups/base` 中，不在增量目录中。您应该看到如下的输出：
+这会将增量文件应用于 `/data/backups/base` 中的文件，这些文件会将它们及时前滚到增量备份的时间。然后像照例将重做日志应用于结果。最终数据位于/ `/data/backups/base` 中，不在增量目录中。您应该看到如下的输出：
 
 ```
 incremental backup from 1291135 is enabled.
@@ -168,7 +171,7 @@ $ xtrabackup --backup --tables-file=/tmp/tables.txt
 
 ### 使用 `--databases` 和 `--databases-file` 选项
 
-`--databases` 选项指定用空格分隔的数据库和表名列表，以 `databasename[.tablename]` 的形式。 `--databases-file`  选项指定一个包含上述格式的多张数据库和表文件，该文件中每行包含一张要备份的表名。只有列出的数据库和表将被备份。表名需要完全匹配，区分大小写，不能使用模式或正则表达式匹配。
+`--databases` 选项指定用空格分隔的数据库和表名列表，以 `databasename[.tablename]` 的形式。 `--databases-file` 选项指定一个包含上述格式的多张数据库和表文件，该文件中每行包含一张要备份的表名。只有列出的数据库和表将被备份。表名需要完全匹配，区分大小写，不能使用模式或正则表达式匹配。
 
 ### 准备备份
 
@@ -202,7 +205,7 @@ InnoDB: but tablespace with that id or name does not exist. It will be removed f
 系统表空间不支持紧凑备份，因此为了能够正确运行备份程序，应该启用 `innodb-file-per-table` 选项。
 {% endnote %}
 
-此功能在 *Percona XtraBackup 2.1* 中引入。
+此功能在 _Percona XtraBackup 2.1_ 中引入。
 
 ### 创建紧凑备份
 
@@ -224,7 +227,7 @@ last_lsn = 2888984349
 compact = 1
 ```
 
-当未使用 `--compact` 时，`compact` 的值将为0。通过这种方式，很容易检查备份是否包含辅助索引页。
+当未使用 `--compact` 时，`compact` 的值将为 0。通过这种方式，很容易检查备份是否包含辅助索引页。
 
 ### 准备紧凑备份
 
@@ -254,7 +257,7 @@ $ xtrabackup --prepare --rebuild-indexes /data/backups/
 $ xtrabackup --prepare --rebuild-indexes --rebuild-threads=16 /data/backups/
 ```
 
-在这种情况下，*Percona XtraBackup* 将一次为一张表创建 16 个工作线程，每个线程同时为一张表重建索引。它还会显示每条消息的线程ID
+在这种情况下，_Percona XtraBackup_ 将一次为一张表创建 16 个工作线程，每个线程同时为一张表重建索引。它还会显示每条消息的线程 ID
 
 ```
 Starting 16 threads to rebuild indexes.
@@ -269,7 +272,7 @@ Starting 16 threads to rebuild indexes.
 [11]   Rebuilding 3 index(es).
 ```
 
-由于 *Percona XtraBackup* 在将增量备份应用于紧凑完整备份时没有任何提示信息，因此不论以后是否会应用更多的增量备份，每次将增量备份应用于完整备份时，都需要用户显示指定重建索引。在每次增量备份合并时无条件地重建索引不是一种好的选择，因为这是一项非常昂贵的操作。
+由于 _Percona XtraBackup_ 在将增量备份应用于紧凑完整备份时没有任何提示信息，因此不论以后是否会应用更多的增量备份，每次将增量备份应用于完整备份时，都需要用户显示指定重建索引。在每次增量备份合并时无条件地重建索引不是一种好的选择，因为这是一项非常昂贵的操作。
 
 ### 恢复紧凑备份
 
@@ -283,11 +286,11 @@ Starting 16 threads to rebuild indexes.
 
 ## 节流备份
 
-尽管 xtrabackup 不会阻止数据库操作，但任何备份都可以将负载添加到正在备份的系统中。 在没有太多备用 I/O 容量的系统上，调节xtrabackup 读取和写入数据的速率可能会有所帮助。 您可以使用 `--throttle` 选项执行此操作，该选将项限制每秒的 I/O 操作数为 1 MB。
+尽管 xtrabackup 不会阻止数据库操作，但任何备份都可以将负载添加到正在备份的系统中。 在没有太多备用 I/O 容量的系统上，调节 xtrabackup 读取和写入数据的速率可能会有所帮助。 您可以使用 `--throttle` 选项执行此操作，该选将项限制每秒的 I/O 操作数为 1 MB。
 
 下图显示了当 `--throttle = 1` 时节流备份是如何工作的。
 
-![](https://raw.githubusercontent.com/toypipi/graph_bed/master/image/20180410/throttle.png)
+{% asset_img 1.png %}
 
 在 `--backup` 模式下，此选项限制 xtrabackup 每秒执行的读写操作对的数量。 如果您正在创建增量备份，则限制的是每秒读 IO 操作的次数。
 
@@ -301,7 +304,7 @@ Starting 16 threads to rebuild indexes.
 
 在备份模式下，xtrabackup 通常会使用后台线程复制日志文件，使用前台线程复制数据文件，最后停止日志复制线程并结束。如果使用 `--suspend-at-end` 选项，xtrabackup 将不会停止日志线程并结束，而是继续复制日志文件，并在名为 `xtrabackup_suspended` 的目标目录中创建一个文件。只要该文件存在，xtrabackup 就会继续观察日志文件并将其复制到目标目录中的 `xtrabackup_logfile` 中。当该文件被移除时，**xtrabackup** 将完成复制日志文件并退出。
 
-此功能对于协调 InnoDB 数据备份与其他操作非常有用。也许最明显的作用就是复制表定义（`.frm` 文件），以便可以恢复备份。您可以在后台启动 **xtrabackup**，等待创建 `xtrabackup_suspended` 文件，然后复制完成备份所需的任何其他文件。这正是 `innobackupex` 工具所做的（它也复制MyISAM 数据和其他文件）。 
+此功能对于协调 InnoDB 数据备份与其他操作非常有用。也许最明显的作用就是复制表定义（`.frm` 文件），以便可以恢复备份。您可以在后台启动 **xtrabackup**，等待创建 `xtrabackup_suspended` 文件，然后复制完成备份所需的任何其他文件。这正是 `innobackupex` 工具所做的（它也复制 MyISAM 数据和其他文件）。
 
 ### 生成元数据
 
@@ -324,7 +327,7 @@ innodb_log_group_home_dir = /data/innodb-logs/
 
 ### 日志流
 
-您可以指定 **xtrabackup** 省略复制数据文件，并简单地将日志文件流式传输到其标准输出，而不是使用 `--log-stream` 。这会自动添加 `--suspend-at-end` 选项。然后，您的脚本可以通过将日志文件传输到 SSH 连接并使用 **rsync** 或 [xbstream二进制程序](https://www.percona.com/doc/percona-xtrabackup/LATEST/xbstream/xbstream.html)等工具将数据文件复制到另一台服务器来执行流式传输远程备份等任务。
+您可以指定 **xtrabackup** 省略复制数据文件，并简单地将日志文件流式传输到其标准输出，而不是使用 `--log-stream` 。这会自动添加 `--suspend-at-end` 选项。然后，您的脚本可以通过将日志文件传输到 SSH 连接并使用 **rsync** 或 [xbstream 二进制程序](https://www.percona.com/doc/percona-xtrabackup/LATEST/xbstream/xbstream.html)等工具将数据文件复制到另一台服务器来执行流式传输远程备份等任务。
 
 ## 分析表统计信息
 
@@ -347,16 +350,16 @@ innodb_log_group_home_dir = /data/innodb-logs/
 
 这可以解释如下：
 
-* 第一行仅显示了表格和索引名称及其内部标识符。如果您看到名为 `GEN_CLUST_INDEX` 的索引，即表的聚簇索引，它是自动创建的，因为您没有明确创建 `PRIMARY KEY` 。
-* 字典信息中的估计统计信息类似于通过 InnoDB 内部的 `ANALYZE TABLE` 收集的数据，这些数据被存储为估计的基数统计信息，并传递给查询优化器。
-* 真正的统计信息是扫描数据页和计算有关索引的确切信息的结果。
-* `The level <X> pages` ：该输出表示该行对应索引树中的那个级别的页面的信息。越大的 `<X>` 离叶子页越远，它们是叶子页 0 级。第一行是根页面。
-* `leaf pages` 输出显示叶子页的信息。这是表格数据的存储位置。
-* `external pages` ：输出（上面未显示）显示保存那些其值太长而不适合存储于行本身的大型外部页面，如 `BLOB` 和 `TEXT` 类型值。
-* `recs` 是叶子页中记录（行）的实际数量。
-* `pages` 是页数。
-* `data` 是页面中数据的总大小（以字节为单位）。
-* `data/pages` 计算方法为 (`data` / (`pages` * `PAGE_SIZE`)) * 100%。由于为页眉和页脚预留了空间，所以它永远不会达到100％。
+- 第一行仅显示了表格和索引名称及其内部标识符。如果您看到名为 `GEN_CLUST_INDEX` 的索引，即表的聚簇索引，它是自动创建的，因为您没有明确创建 `PRIMARY KEY` 。
+- 字典信息中的估计统计信息类似于通过 InnoDB 内部的 `ANALYZE TABLE` 收集的数据，这些数据被存储为估计的基数统计信息，并传递给查询优化器。
+- 真正的统计信息是扫描数据页和计算有关索引的确切信息的结果。
+- `The level <X> pages` ：该输出表示该行对应索引树中的那个级别的页面的信息。越大的 `<X>` 离叶子页越远，它们是叶子页 0 级。第一行是根页面。
+- `leaf pages` 输出显示叶子页的信息。这是表格数据的存储位置。
+- `external pages` ：输出（上面未显示）显示保存那些其值太长而不适合存储于行本身的大型外部页面，如 `BLOB` 和 `TEXT` 类型值。
+- `recs` 是叶子页中记录（行）的实际数量。
+- `pages` 是页数。
+- `data` 是页面中数据的总大小（以字节为单位）。
+- `data/pages` 计算方法为 (`data` / (`pages` _ `PAGE_SIZE`)) _ 100%。由于为页眉和页脚预留了空间，所以它永远不会达到 100％。
 
 更详细的示例将作为 MySQL 性能博客文章[发布](https://www.percona.com/blog/2009/09/14/statistics-of-innodb-tables-and-indexes-available-in-xtrabackup/)。
 
@@ -440,7 +443,7 @@ art.link_out104    site_message     36992       4651      83.4%
 
 ## 使用二进制日志
 
-**xtrabackup** 程序集成了 *InnoDB* 在其事务日志中存储的有关已提交事务的相应二进制日志位置的信息。 这使它能够打印出备份文件对应的二进制日志位置，因此您可以使用它来设置新的从库复制或执行时间点恢复。
+**xtrabackup** 程序集成了 _InnoDB_ 在其事务日志中存储的有关已提交事务的相应二进制日志位置的信息。 这使它能够打印出备份文件对应的二进制日志位置，因此您可以使用它来设置新的从库复制或执行时间点恢复。
 
 ### 查找二进制日志位置
 
@@ -457,11 +460,11 @@ InnoDB: Last MySQL binlog file position 0 3252710, file name ./mysql-bin.000001
 InnoDB: Last MySQL binlog file position 0 3252710, file name ./mysql-bin.000001
 ```
 
-该输出也可以在 `xtrabackup_binlog_pos_innodb` 文件中找到，但只有在使用 *XtraDB* 或 *InnoDB* 作为存储引擎时才是正确的。
+该输出也可以在 `xtrabackup_binlog_pos_innodb` 文件中找到，但只有在使用 _XtraDB_ 或 _InnoDB_ 作为存储引擎时才是正确的。
 
-如果使用其他存储引擎（例如 *MyISAM*），则应使用 `xtrabackup_binlog_info` 文件检索位置。
+如果使用其他存储引擎（例如 _MyISAM_），则应使用 `xtrabackup_binlog_info` 文件检索位置。
 
-上文提到的 `hack of group commit` 是指在 *Percona* 服务器中早期实现的模拟组提交。
+上文提到的 `hack of group commit` 是指在 _Percona_ 服务器中早期实现的模拟组提交。
 
 ### 时间点恢复
 
@@ -477,7 +480,7 @@ InnoDB: Last MySQL binlog file position 0 3252710, file name ./mysql-bin.000001
 
 ## 恢复单表
 
-在 5.6 之前的服务器版本中，即使使用 `innodb_file_per_table`，也不可能通过复制文件在服务器之间复制表。 但是，使用 *Percona XtraBackup*，您可以从任何 *InnoDB* 数据库中导出单张表，然后将它们导入到 *Percona Server* 的 *XtraDB* 或 *MySQL 5.6* 中。 （导出库不一定是 *XtraDB* 或 *MySQL 5.6* ，但是导入库必须是。）这只适用于单独的 `.ibd` 文件，并且不能导出不包含在其自己的 `.ibd` 文件中的表。
+在 5.6 之前的服务器版本中，即使使用 `innodb_file_per_table`，也不可能通过复制文件在服务器之间复制表。 但是，使用 _Percona XtraBackup_，您可以从任何 _InnoDB_ 数据库中导出单张表，然后将它们导入到 _Percona Server_ 的 _XtraDB_ 或 _MySQL 5.6_ 中。 （导出库不一定是 _XtraDB_ 或 _MySQL 5.6_ ，但是导入库必须是。）这只适用于单独的 `.ibd` 文件，并且不能导出不包含在其自己的 `.ibd` 文件中的表。
 
 我们来看看如何导出和导入下表：
 
@@ -489,10 +492,11 @@ CREATE TABLE export_test (
 
 {% note default %}
 注意
-如果您运行的是早于 `5.5.10-20.1` 的 *Percona Server* 版本，则应该使用变量 `innodb_expand_import` 而不是 `innodb_import_table_from_xtrabackup` 。
+如果您运行的是早于 `5.5.10-20.1` 的 _Percona Server_ 版本，则应该使用变量 `innodb_expand_import` 而不是 `innodb_import_table_from_xtrabackup` 。
 {% endnote%}
 
 ### 导出表格
+
 这张表应该是在 `innodb_file_per_table` 模式下创建的，所以像 `xtrabackup --backup` 一样进行备份后，`.ibd` 文件应该存在于目标目录中：
 
 ```
@@ -514,6 +518,7 @@ $ xtrabackup --prepare --export --target-dir=/data/backups/mysql/
 xtrabackup --prepare --export --target-dir=/tmp/table \
 --keyring-file-data=/var/lib/mysql-keyring/keyring
 ```
+
 {% endnote%}
 
 现在你应该在目标目录中看到一个 `.exp` 文件：
@@ -525,21 +530,21 @@ $ find /data/backups/mysql/ -name export_test.*
 /data/backups/mysql/test/export_test.cfg
 ```
 
-将表导入运行 *XtraDB* 的 *Percona服务器* 或 *MySQL 5.7* 需要以上三个文件。在服务器使用 [`InnoDB Tablespace Encryption`](https://dev.mysql.com/doc/refman/5.7/en/innodb-tablespace-encryption.html) 的情况下，将会列出用于加密表的附加的 `.cfg` 文件。
+将表导入运行 _XtraDB_ 的 _Percona 服务器_ 或 _MySQL 5.7_ 需要以上三个文件。在服务器使用 [`InnoDB Tablespace Encryption`](https://dev.mysql.com/doc/refman/5.7/en/innodb-tablespace-encryption.html) 的情况下，将会列出用于加密表的附加的 `.cfg` 文件。
 
 {% note default %}
 注意
-*MySQL* 使用包含特殊格式的 *InnoDB* 字典转储的 `.cfg` 文件。这种格式与 *XtraDB* 中用于相同目的的 `.exp` 不同。严格地说，将表空间导入到 *MySQL 5.7* 或 *Percona Server 5.7* 中时不需要 `.cfg` 文件。即使是来自其他数据库版本的表空间也会成功导入，但如果相应的 `.cfg` 文件存在于同一目录中，*InnoDB* 将执行模式验证。
+_MySQL_ 使用包含特殊格式的 _InnoDB_ 字典转储的 `.cfg` 文件。这种格式与 _XtraDB_ 中用于相同目的的 `.exp` 不同。严格地说，将表空间导入到 _MySQL 5.7_ 或 _Percona Server 5.7_ 中时不需要 `.cfg` 文件。即使是来自其他数据库版本的表空间也会成功导入，但如果相应的 `.cfg` 文件存在于同一目录中，_InnoDB_ 将执行模式验证。
 {% endnote %}
 
 ### 导入表格
 
-在使用 `XtraDB` 引擎和启用 `innodb_import_table_from_xtrabackup` 选项的 *Percona Server* 的目标服务器，或者 *MySQL 5.6* 上，创建一张具有相同结构的表，然后执行以下步骤：
+在使用 `XtraDB` 引擎和启用 `innodb_import_table_from_xtrabackup` 选项的 _Percona Server_ 的目标服务器，或者 _MySQL 5.6_ 上，创建一张具有相同结构的表，然后执行以下步骤：
 
-* 执行 `ALTER TABLE test.export_test DISCARD TABLESPACE`;
-    如果看到以下消息，则必须启用 `innodb_file_per_table` 并再次创建该表：`ERROR 1030 (HY000): Got error -1 from storage engine`
-* 将导出的文件复制到目标服务器的数据目录的 `test/` 子目录
-* 执行 `ALTER TABLE test.export_test IMPORT TABLESPACE`;
+- 执行 `ALTER TABLE test.export_test DISCARD TABLESPACE`;
+  如果看到以下消息，则必须启用 `innodb_file_per_table` 并再次创建该表：`ERROR 1030 (HY000): Got error -1 from storage engine`
+- 将导出的文件复制到目标服务器的数据目录的 `test/` 子目录
+- 执行 `ALTER TABLE test.export_test IMPORT TABLESPACE`;
 
 该表现在应该已被导入，你应该能够从中执行 `SELECT` 语句并查看导入的数据。
 
@@ -550,9 +555,9 @@ $ find /data/backups/mysql/ -name export_test.*
 
 ## LRU 转储备份
 
-此功能通过在数据库重启后从 `ib_lru_dump` 文件恢复缓冲池状态来减少预热时间。 *Percona XtraBackup* 会查找 `ib_lru_dump` 并自动备份它。
+此功能通过在数据库重启后从 `ib_lru_dump` 文件恢复缓冲池状态来减少预热时间。 _Percona XtraBackup_ 会查找 `ib_lru_dump` 并自动备份它。
 
-![](https://raw.githubusercontent.com/toypipi/graph_bed/master/image/20180416/lru_dump.png)
+{% asset_img 2.png %}
 
 如果在 `my.cnf` 文件中设置了启用缓冲区恢复选项，则备份恢复后缓冲池将处于预热好的状态。 要启用它，请在 Percona Server 5.5 中设置变量 `innodb_buffer_pool_restore_at_startup =1` 或在 Percona Server 5.1 中设置 `innodb_auto_lru_dump =1`。
 
@@ -564,7 +569,7 @@ $ find /data/backups/mysql/ -name export_test.*
 
 ### 文件权限
 
-**xtrabackup** 以读写模式打开源数据文件，虽然它并不修改源文件。这意味着您必须以拥有写入权限的用户运行 **xtrabackup** 。以读写模式打开文件的原因是 **xtrabackup** 使用嵌入式 *InnoDB* 库打开和读取文件， *InnoDB* 以读写模式打开它们，因为它通常假定它将写入数据。
+**xtrabackup** 以读写模式打开源数据文件，虽然它并不修改源文件。这意味着您必须以拥有写入权限的用户运行 **xtrabackup** 。以读写模式打开文件的原因是 **xtrabackup** 使用嵌入式 _InnoDB_ 库打开和读取文件， _InnoDB_ 以读写模式打开它们，因为它通常假定它将写入数据。
 
 ### 调整 OS 缓冲区
 
@@ -582,7 +587,7 @@ posix_fadvise(file, 0, 0, POSIX_FADV_SEQUENTIAL)
 
 ### 复制数据文件
 
-将数据文件复制到目标目录时， **xtrabackup** 一次读取和写入 1MB 数据。这是不可配置的。在复制日志文件时， **xtrabackup** 每次读取和写入 512 个字节。这也无法配置，并且与 InnoDB 的复制行为相匹配（*Percona Server* 中存在解决方法，因为它可以选择调整 *XtraDB* 的 `innodb_log_block_size`，在这种情况下，*Percona XtraBackup* 将相应调整）。
+将数据文件复制到目标目录时， **xtrabackup** 一次读取和写入 1MB 数据。这是不可配置的。在复制日志文件时， **xtrabackup** 每次读取和写入 512 个字节。这也无法配置，并且与 InnoDB 的复制行为相匹配（_Percona Server_ 中存在解决方法，因为它可以选择调整 _XtraDB_ 的 `innodb_log_block_size`，在这种情况下，_Percona XtraBackup_ 将相应调整）。
 
 从文件中读取数据后， **xtrabackup** 每次迭代 1MB 缓冲页，并使用 InnoDB 的 `buf_page_is_corrupted()` 函数检查每个页面上的页面损坏情况。如果页面已损坏，则每页重新读取并重试 10 次。它跳过对双写缓冲区的检查。
 
@@ -590,7 +595,7 @@ posix_fadvise(file, 0, 0, POSIX_FADV_SEQUENTIAL)
 
 在没有错误发生时， **xtrabackup** 将在备份完成后以成功值 0 退出。 如果在备份过程中发生错误，则退出值为 1 。
 
-在某些情况下，由于 *MySQL* 库包含的命令行选项代码，退出值可能不是 0 或 1 。 例如，未知的命令行选项会导致退出代码为 255。
+在某些情况下，由于 _MySQL_ 库包含的命令行选项代码，退出值可能不是 0 或 1 。 例如，未知的命令行选项会导致退出代码为 255。
 
 # 参考
 
