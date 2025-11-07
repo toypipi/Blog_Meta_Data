@@ -7,7 +7,7 @@ date: 2025-10-28 14:53:51
 
 ---
 
-# Present continuous（I am doing） 20251028
+# Present continuous（I am doing）(20251028)
 
 ## Exercises
 
@@ -62,7 +62,7 @@ date: 2025-10-28 14:53:51
 13 (The weather / change)The weather is changing. Look at those clouds.I think it’s going to rain.
 14 Dan has been in the same job for a long time. (He / start)He is starting to get bored with it.
 
-# Present simple (I do) 20251106
+# Present simple (I do) (20251106)
 
 ## Exercises
 
@@ -125,3 +125,63 @@ Where do your grandparents live ?
 4 I apologise for what I said. I shouldn’t have said it.  
 5 The new restaurant in Baker Street is very good. I recommend it.  
 6 I think you’re absolutely right.I agree with you.
+
+# Present continuous and present simple 1 (20251107)
+
+(**I am doing** and **I do**)
+
+## Exercises
+
+### 3.1 Are the underlined verbs OK? Correct them where necessary.
+
+1 Water boils at 100 degrees Celsius. OK
+2 How often are you going to the cinema? do you go
+3 Ben tries to find a job, but he hasn’t had any luck yet. is trying
+4 Martina is phoning her mother every day. phones
+5 The moon goes round the earth in about 27 days. OK
+6 Can you hear those people? What do they talk about? are they talking
+7 What do you do in your spare time?. OK
+8 Sarah is a vegetarian. She doesn’t eat meat. OK
+9 I must go now. It gets late. is getting
+10 ‘Come on! It’s time to leave.’ ‘OK, I come.’ am coming
+11 Paul is never late. He’s always starting work on time. starts
+12 They don’t get on well. They’re always arguing. OK
+
+### 3.2 Put the verb into the correct form, present continuous or present simple.
+
+1 a I usually get (I / usually / get) hungry in the afternoon.
+b I’m getting (I / get) hungry. Let’s go and eat something.
+2 a ‘ Are you listening (you / listen) to the radio?’ ‘No, you can turn it off.’
+b ‘Do you listen (you / listen) to the radio a lot?’ ‘No, not very often.’
+3 a The River Nile flows (flow) into the Mediterranean.
+b The river is flowing (flow) very fast today – much faster than usual.
+4 a I’m not very active. I don't do (I / not / do) any sport.
+b What do you usually do (you / usually / do) at weekends?
+5 a Rachel is in New York right now. (She / stay)She is staying at the Park Hotel.
+b She always stays (She / always / stay) there when she’s in New York.
+
+### 3.3 Put the verb into the correct form, present continuous or present simple.
+
+1 Why are all these people here? What’s happening (What / happen)?
+2 Julia is good at languages. (She / speak)She speaks four languages very well.
+3 Are you ready yet? (Everybody / wait)Everybody is waiting for you.
+4 I’ve never heard this word. How (you / pronounce)do you pronounce it?
+5 Kate isn't working (not / work) this week. She’s on holiday.
+6 I think my English (improve) is improving slowly. It’s better than it was.
+7 Nicola (live)lives in Manchester. She has never lived anywhere else.
+8 Can we stop walking soon? (I / start)I am starting to get tired.
+9 Sam and Tina are in Madrid right now. (They / visit)They are visiting a friend of theirs.
+10 ‘What does your father do(your father / do)?’ ‘He’s an architect.’
+11 It took me an hour to get to work this morning. Most days it doesn't take (it / not / take) so long.
+12 I (I / learn)I am learning to drive. My driving test is next month. My father teaches (teach) me.
+
+### 3.4 Finish B’s sentences. Use always -ing.
+
+1 a: I’ve lost my keys again.
+b: Not again! You’re always losing your keys .
+2 a: The car has broken down again.
+b: That car is useless. It is always breaking down.
+3 a: Look! You’ve made the same mistake again.
+b: Oh no, not again! I am always making the same mistake.
+4 a: Oh, I’ve left my phone at home again.
+b: Typical! I am always leaving my phone at home.
