@@ -185,3 +185,65 @@ b: That car is useless. It is always breaking down.
 b: Oh no, not again! I am always making the same mistake.
 4 a: Oh, I’ve left my phone at home again.
 b: Typical! I am always leaving my phone at home.
+
+# Present continuous and present simple 2 （20251112）
+
+(**I am doing** and **I do**)
+
+## Exercises
+
+### 4.1 Put the verb into the correct form, present continuous or present simple.
+
+1 Are you hungry? Do you want (you / want) something to eat?
+2 Alan says he’s 90 years old, but nobody believes (believe) him.
+3 She told me her name, but I don't remember(I / not / remember) it now.
+4 Don’t put the dictionary away. I'm using(I / use) it.
+5 Don’t put the dictionary away. I need(I / need) it.
+6 Air consists (consist) mainly of nitrogen and oxygen.
+7 Who is that man? What does he want (he / want)?
+8 Who is that man? Why is he looking (he / look) at us?
+9 Who is that man? Do you recognise (you / recognise) him?
+10 (I / think)I'm thinking of selling my car. Would you be interested in buying it?
+11 I can’t make up my mind. What do you think (you / think) I should do?
+12 Gary wasn’t well earlier, but he seems(he / seem) OK now.
+
+### 4.2 Use the words in brackets to make sentences.
+
+1 (you / not / seem / very happy today)
+You don’t seem very happy today.
+
+2 Are you OK?
+You look worried
+
+I don't think so.
+
+3 (who / this umbrella / belong to?)
+Who does this umbrella belong to?
+
+4 (this / smell / good)
+This smells good.
+
+5 Excuse me. (anybody / sit / there?)
+Is anybody sitting there?
+
+6 (these gloves / not / fit / me)
+These gloves don't fit me.
+
+### 4.3 Are the underlined verbs OK? Correct them where necessary.
+
+1 Nicky is thinking of giving up her job. OK
+2 It’s not true. I’m not believing it. I don’t believe it.
+3 I’m feeling hungry. Is there anything to eat?I feel hungry.
+4 I’ve never eaten that fruit. What is it tasting like?What does it taste like?
+5 I’m not sure what she does. I think she works in a shop.OK
+6 Look over there. What are you seeing?What can you see?
+7 You’re very quiet. What are you thinking about?Ok
+
+### 4.4 Complete the sentences. Use is/are being (continuous) or is/are (simple).
+
+1 I can’t understand why he’s being so selfish. He isn’t usually like that.
+2 You’ll like Sophie when you meet her. She is very nice.
+3 Sarah very nice to me at the moment. I'm wondering why.
+4 They are very happy. They’ve just got married.
+5 You’re normally very patient, so why are you so unreasonable about waiting ten more minutes?
+6 Would you like something to eat? Are you hungry?
