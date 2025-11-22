@@ -7,6 +7,8 @@ date: 2025-10-28 14:53:51
 
 ---
 
+记录一下《English Grammar in Use，5th Edition》的练习题。
+
 # Present continuous（I am doing）(20251028)
 
 ## Exercises
@@ -247,3 +249,64 @@ These gloves don't fit me.
 4 They are very happy. They’ve just got married.
 5 You’re normally very patient, so why are you so unreasonable about waiting ten more minutes?
 6 Would you like something to eat? Are you hungry?
+
+# Unit 5 Past simple (I did)
+
+## Exercises
+
+### 5.1 Read what Laura says about a typical working day:
+
+LAURA:I usually get up at 7 o’clock and have a big breakfast. I walk to work, which takes me about half an hour. I start work at 8.45. I never have lunch. I finish work at 5 o’clock. I’m always tired when I get home. I usually cook a meal in the evening. I don’t usually go out. I go to bed at about 11 o’clock, and I always sleep well.
+
+Yesterday was a typical working day for Laura. Write what she did or didn’t do yesterday.
+1 She got up at 7 o’clock.
+2 She had a big breakfast.
+3 She walked to work.
+4 It took her half an hour to get to work.
+5 She started work at 8.45.
+6 She didn't have lunch.
+7 She finished work at 5 o’clock.
+8 She was tired when she got home.
+9 She cooked a meal yesterday evening.
+10 She didn't go out yesterday evening.
+11 She went to bed at 11 o’clock.
+12 She slept well last night.
+
+### 5.2 Complete the sentences using the following verbs in the correct form:
+
+buy catch cost fall hurt sell spend teach throw write
+
+1 Mozart wrote more than 600 pieces of music.
+2 ‘How did you learn to drive?’ ‘My father taught me.’
+3 We couldn’t afford to keep our car, so we sold it.
+4 Dave fell down the stairs this morning and broke his leg.
+5 Joe threw the ball to Sue, who caught it.
+6 Kate spent a lot of money yesterday. She bought a dress which cost £100.
+
+### 5.3 You ask JAMES about his holiday in the US. Write your questions.
+
+1 YOU: Where did you go ?
+JAMES: To the US. We went on a trip from San Francisco to Denver.
+2 YOU: How did you get there ? By car?
+JAMES: Yes, we hired a car in San Francisco.
+3 YOU: It’s a long way to drive. How long did it take?
+JAMES: Two weeks. We stopped at a lot of places along the way.
+4 YOU: Where did you live ? In hotels?
+JAMES: Yes, small hotels or motels.
+5 YOU: Was the weather good?
+JAMES: Yes, but it was very hot – sometimes too hot.
+6 YOU: Did you visit the Grand Canyon?
+JAMES: Of course. It was wonderful.
+
+### 5.4 Complete the sentences. Put the verb into the correct form, positive or negative.
+
+1 It was warm, so I took off my coat. (take)
+2 The film wasn’t very good. I didn’t enjoy it much. (enjoy)
+3 I knew Sarah was busy, so I didn't disturb her. (disturb)
+4 We were very tired, so we left the party early. (leave)
+5 It was hard carrying the bags. They were really heavy. (be)
+6 The bed was very uncomfortable. I didn't sleep well. (sleep)
+7 This watch wasn’t expensive. It didn't cost much. (cost)
+8 The window was open and a bird flew into the room. (fly)
+9 I was in a hurry, so I didn't have time to call you. (have)
+10 I didn’t like the hotel. The room was not very clean. (be)
